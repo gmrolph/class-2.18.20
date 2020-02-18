@@ -15,12 +15,24 @@ library(reprex)
 ```
 
 ```{r}
-enrollment <- read_excel("class_enrollment_summary_by_term2.18.20.xlsx", skip = 3) %>%
+enrollment <- read_excel("class_enrollment_summary_by_term2.18.20.xlsx", skip = 3)
+```
+
+```{r}
+View(enrollment)
+```
+
+```{r}
+enrollment %>% 
   clean_names() %>%
   filter(! is.na(course_name)) %>%
   group_by(course_department) %>% 
-  summarize(sum(total, u_grad)) %>% 
-  arrange(desc())
-
+  summarize(sum = sum(total)) %>%
+  arrange(desc(sum)) %>% 
+  head(5) %>% 
+  View()
 ```
+
+
+
 
